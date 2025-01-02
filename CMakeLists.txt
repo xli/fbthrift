@@ -114,6 +114,7 @@ if (THRIFT_LIB_ONLY OR build_all)
   find_package(Zstd REQUIRED)
   find_package(Xxhash REQUIRED)
   find_package(mvfst CONFIG REQUIRED)
+  find_package(proxygen CONFIG REQUIRED)
   # https://cmake.org/cmake/help/v3.9/module/FindThreads.html
   set(THREADS_PREFER_PTHREAD_FLAG ON)
   find_package(Threads)
@@ -123,6 +124,7 @@ if (THRIFT_LIB_ONLY OR build_all)
     ${OPENSSL_INCLUDE_DIR}
     ${ZSTD_INCLUDE_DIRS}
     ${Xxhash_INCLUDE_DIR}
+    ${proxygen_INCLUDE_DIRS}
   )
   add_definitions("-DTHRIFT_HAVE_LIBSNAPPY=0")
   if (THRIFT_LIB_ONLY)

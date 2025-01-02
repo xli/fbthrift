@@ -114,7 +114,7 @@ foreach(_mod ${cpp_tgts})
   )
 
   if(${_f} STREQUAL "types")
-    python_add_module(${_module_name} "${_cxx}" "enums.cpp")
+    python_add_module(${_module_name} "${_cxx}")
   else()
     python_add_module(${_module_name} "${_cxx}")
   endif()

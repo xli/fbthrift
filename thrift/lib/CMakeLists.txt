@@ -28,7 +28,6 @@ set(LIB_DIRS
   thrift
   cpp
   cpp2
-  py3
 )
 foreach(dir ${LIB_DIRS})
   install(DIRECTORY ${dir} "${CMAKE_CURRENT_BINARY_DIR}/${dir}"
