@@ -222,6 +222,7 @@ add_library(
   async/AsyncProcessor.cpp
   async/AsyncProcessorHelper.cpp
   async/ClientChannel.cpp
+  async/ClientInterceptorBase.cpp
   async/ClientSinkBridge.cpp
   async/ClientStreamBridge.cpp
   async/Cpp2Channel.cpp
@@ -232,9 +233,11 @@ add_library(
   async/HeaderClientChannel.cpp
   async/HeaderServerChannel.cpp
   async/HibernatingRequestChannel.cpp
+  async/HTTPClientChannel.cpp
   async/Interaction.cpp
   async/MultiplexAsyncProcessor.cpp
   async/PooledRequestChannel.cpp
+  async/PreprocessingAsyncProcessorWrapper.cpp
   async/ReconnectingRequestChannel.cpp
   async/RequestCallback.cpp
   async/RequestChannel.cpp
@@ -365,6 +368,7 @@ target_link_libraries(
     thrifttype
     thriftanyrep
     serverdbginfo
+    proxygen::proxygen
     ${Xxhash_LIBRARY}
 )
 
