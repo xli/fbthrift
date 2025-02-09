@@ -13,7 +13,7 @@ env:
 	pip install --upgrade pip
 	pip install setuptools
 	pip install setuptools_rust
-	pip install Cython=3.0.11
+	pip install Cython==3.0.11
 
 
 install:
@@ -30,6 +30,6 @@ build: target=fbthrift
 build:
 	./build/fbcode_builder/getdeps.py \
 		--allow-system-packages build $(target) \
-		--extra-cmake-defines '{"CMAKE_POSITION_INDEPENDENT_CODE": "ON", "PYTHON_EXTENSIONS": "ON", "thriftpy3": "ON", "CMAKE_CXX_FLAGS": "$(CMAKE_CXX_FLAGS)"}' \
+		--extra-cmake-defines '{$(PY_CMAKE), "CMAKE_POSITION_INDEPENDENT_CODE": "ON", "CMAKE_CXX_FLAGS": "$(CMAKE_CXX_FLAGS)"}' \
 		--install-dir $(INSTALL_DIR) \
 		--no-test --clean --no-deps
