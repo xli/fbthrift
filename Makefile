@@ -1,13 +1,14 @@
 
 PYTHON_INSTALL_DIR=/usr/local/lib/python3.10/dist-packages
 PYTHON_INCLUDE_DIR=/usr/include/python3.10/
-PYTHON_LIIBRARY=/usr/lib/aarch64-linux-gnu/libpython3.10.so
-PY_CMAKE="PYTHON_PACKAGE_INSTALL_DIR": "$(PYTHON_INSTALL_DIR)", "PYTHON_INCLUDE_DIR": "$(PYTHON_INCLUDE_DIR)", "PYTHON_LIBRARY": "$(PYTHON_LIBRARY)", "PYTHON_EXTENSIONS": "ON", "thriftpy3": "ON"
+PYTHON_LIBRARY=/usr/lib/aarch64-linux-gnu/libpython3.10.so
+PY_CMAKE="PYTHON_PACKAGE_INSTALL_DIR": "$(PYTHON_INSTALL_DIR)", "PYTHON_INCLUDE_DIR": "$(PYTHON_INCLUDE_DIR)", "PYTHON_LIBRARY": "$(PYTHON_LIBRARY)", "PYTHON_LIBRARIES": "$(PYTHON_LIBRARY)", "PYTHON_EXTENSIONS": "ON", "thriftpy3": "ON"
 CMAKE_C_FLAGS=
-CMAKE_CXX_FLAGS=-std=gnu++20 -D_GLIBCXX_USE_CXX11_ABI=0 -fcoroutines
+CMAKE_CXX_FLAGS=-std=gnu++20 -D_GLIBCXX_USE_CXX11_ABI=0 -fcoroutines -I$(PYTHON_INCLUDE_DIR)
 INSTALL_DIR=/usr/local
+CMAKE_DEFINES='{$(PY_CMAKE), "CMAKE_POSITION_INDEPENDENT_CODE": "ON", "CMAKE_CXX_FLAGS": "$(CMAKE_CXX_FLAGS)"}'
 
-.PHONY: env install build
+.PHONY: env install build dock
 
 env:
 	pip install --upgrade pip
@@ -29,7 +30,13 @@ install:
 build: target=fbthrift
 build:
 	./build/fbcode_builder/getdeps.py \
-		--allow-system-packages build $(target) \
-		--extra-cmake-defines '{$(PY_CMAKE), "CMAKE_POSITION_INDEPENDENT_CODE": "ON", "CMAKE_CXX_FLAGS": "$(CMAKE_CXX_FLAGS)"}' \
+		--allow-system-packages \
+		build $(target) \
+		--extra-cmake-defines $(CMAKE_DEFINES) \
 		--install-dir $(INSTALL_DIR) \
-		--no-test --clean --no-deps
+		--no-test --clean --no-deps \
+		2>&1 | tee build_$(target).log
+
+dock:
+	docker build --no-cache -t fbthrift-image .
+	docker run -it fbthrift-image

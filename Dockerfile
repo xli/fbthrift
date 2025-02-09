@@ -44,7 +44,7 @@ RUN apt install -y \
     libgoogle-glog-dev \
     libaio-dev
 
-
+RUN ln -s /usr/bin/python3 /usr/bin/python
 # Install Rust
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
@@ -60,7 +60,7 @@ RUN git clone https://github.com/xli/fbthrift.git
 WORKDIR /app/fbthrift
 
 # Install
-RUN make env install
+RUN make env
 
 
 # Make port 80 available to the world outside this container
