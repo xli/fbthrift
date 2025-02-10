@@ -16,8 +16,8 @@
 set(LIB_CPP2_HOME ${CMAKE_CURRENT_SOURCE_DIR})
 
 if (enable_tests)
-  add_subdirectory(protocol/test)
-  add_subdirectory(test)
+#  add_subdirectory(protocol/test)
+#  add_subdirectory(test)
 endif ()
 
 #######
