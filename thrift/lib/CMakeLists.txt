@@ -352,6 +352,8 @@ if(thriftpy3)
 
   add_custom_command(TARGET thrift_python_and_py3_bindings
     COMMAND ${CMAKE_COMMAND} -E env
+      "CFLAGS=${CMAKE_C_FLAGS}"
+      "CXXFLAGS=${CMAKE_CXX_FLAGS}"
       "CXX=${CMAKE_CXX_COMPILER}"
       "LDSHARED=${CMAKE_CXX_COMPILER} -shared"
       python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
@@ -360,6 +362,8 @@ if(thriftpy3)
   )
   add_custom_command(TARGET thrift_python_and_py3_bindings
     COMMAND ${CMAKE_COMMAND} -E env
+      "CFLAGS=${CMAKE_C_FLAGS}"
+      "CXXFLAGS=${CMAKE_CXX_FLAGS}"
       "CXX=${CMAKE_CXX_COMPILER}"
       "LDSHARED=${CMAKE_CXX_COMPILER} -shared"
       python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
@@ -368,6 +372,8 @@ if(thriftpy3)
   )
   add_custom_command(TARGET thrift_python_and_py3_bindings POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E env
+      "CFLAGS=${CMAKE_C_FLAGS}"
+      "CXXFLAGS=${CMAKE_CXX_FLAGS}"
       "CXX=${CMAKE_CXX_COMPILER}"
       "LDSHARED=${CMAKE_CXX_COMPILER} -shared"
       python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
@@ -381,7 +387,9 @@ if(thriftpy3)
   set(ENV{CXX} ${CMAKE_CXX_COMPILER})
   install(CODE "
     execute_process(
-      COMMAND
+      COMMAND ${CMAKE_COMMAND} -E env
+        \"CFLAGS=${CMAKE_C_FLAGS}\"
+        \"CXXFLAGS=${CMAKE_CXX_FLAGS}\"
         python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py install
         --prefix ${py_install_dir} --libpython ${python_libname}
       COMMAND_ECHO STDOUT
