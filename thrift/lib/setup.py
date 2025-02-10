@@ -77,6 +77,7 @@ else:
         "thrift_python_cpp",
         "transport",
         "thriftmetadata",
+        "iberty",
     ] + [
         python_lib
     ]
