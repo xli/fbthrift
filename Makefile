@@ -21,6 +21,7 @@ env:
 install:
 	make build target=boost
 	make build target=fmt
+	make build target=glog
 	make build target=fast_float
 	FOLLY_PYTHON_CXX_FLAGS="$(FOLLY_PYTHON_CXX_FLAGS)" make build target=folly
 	make build target=fizz
@@ -61,9 +62,6 @@ jmtest-server:
 
 jmtest-client:
 	c++ -Wall -O2 -g $(CMAKE_CXX_FLAGS) -I. -static \
-		-lcrypto -lfmt -lfolly -lfolly_python_cpp \
-		-lglog -lasync -lconcurrency -lrpcmetadata \
-		-lruntime -lthrift-core -lthriftcpp2 -lthriftprotocol \
-		-lthrift_python_cpp -ltransport -lthriftmetadata -liberty \
+		-lthrift_python_cpp -lthriftcpp2 -lthriftmetadata -lthriftanyrep -lthrifttype -lthrifttyperep -lthriftprotocol -lthrift-core -lfolly_python_cpp -lasync -lconcurrency -lrpcmetadata -lruntime -ltransport -lfolly -lsnappy -levent -ldouble-conversion -llz4 -lzstd -llzma -lglog -lcrypto -lfmt -liberty -lboost_context -lunwind \
 		-ljmswen_add_cpp2 \
 		-o jmtest_client jmtest/thrift-py/client/TestClient.cpp

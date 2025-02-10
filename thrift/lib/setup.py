@@ -62,9 +62,12 @@ else:
 
     libs = [
         "thrift_python_cpp",
-        "thriftprotocol",
-        "thriftmetadata",
         "thriftcpp2",
+        "thriftmetadata",
+        "thriftanyrep",
+        "thrifttype",
+        "thrifttyperep",
+        "thriftprotocol",
         "thrift-core",
         "folly_python_cpp",
         "async",
@@ -78,10 +81,13 @@ else:
         "double-conversion",
         "lz4",
         "zstd",
+        "lzma",
         "glog",
         "crypto",
         "fmt",
         "iberty",
+        "boost_context",
+        "unwind",
     ] + [
         python_lib
     ]
