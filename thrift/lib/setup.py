@@ -81,10 +81,14 @@ else:
     ] + [
         python_lib
     ]
+    cxx_flags = os.getenv("FOLLY_PYTHON_CXX_FLAGS", "")
+    extra_compile_args = [f for f in cxx_flags.split(" ") if f]
+    print(f"{extra_compile_args = }")
 
     common_options = {
         "language": "c++",
         "libraries": libs,
+        "extra_compile_args": extra_compile_args,
     }
 
     exts = [

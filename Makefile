@@ -5,8 +5,9 @@ PYTHON_INCLUDE_DIR=/usr/include/python3.10/
 PYTHON_LIBRARY=/usr/lib/aarch64-linux-gnu/libpython3.10.so
 PY_CMAKE="PYTHON_PACKAGE_INSTALL_DIR": "$(PYTHON_INSTALL_DIR)", "PYTHON_INCLUDE_DIR": "$(PYTHON_INCLUDE_DIR)", "PYTHON_LIBRARY": "$(PYTHON_LIBRARY)", "PYTHON_LIBRARIES": "$(PYTHON_LIBRARY)", "PYTHON_EXTENSIONS": "ON", "thriftpy3": "ON"
 CMAKE_C_FLAGS=
-CMAKE_CXX_FLAGS=-std=gnu++20 -D_GLIBCXX_USE_CXX11_ABI=0 -fcoroutines -I$(PYTHON_INCLUDE_DIR)
+CMAKE_CXX_FLAGS=-std=gnu++20 -O2 -D_GLIBCXX_USE_CXX11_ABI=0 -fcoroutines -I$(PYTHON_INCLUDE_DIR)
 CMAKE_DEFINES='{$(PY_CMAKE), "CMAKE_POSITION_INDEPENDENT_CODE": "ON", "CMAKE_CXX_FLAGS": "$(CMAKE_CXX_FLAGS)"}'
+FOLLY_PYTHON_CXX_FLAGS=-static $(CMAKE_CXX_FLAGS)
 
 .PHONY: env install build dock jmtest jmtest-server jmtest-client
 
@@ -59,6 +60,10 @@ jmtest-server:
 
 
 jmtest-client:
-	g++ -Wall -O2 -g $(CMAKE_CXX_FLAGS) \
-		-lfolly -lasync -lthrift -ljmswen_add_cpp2
+	c++ -Wall -O2 -g $(CMAKE_CXX_FLAGS) -I. -static \
+		-lcrypto -lfmt -lfolly -lfolly_python_cpp \
+		-lglog -lasync -lconcurrency -lrpcmetadata \
+		-lruntime -lthrift-core -lthriftcpp2 -lthriftprotocol \
+		-lthrift_python_cpp -ltransport -lthriftmetadata -liberty \
+		-ljmswen_add_cpp2 \
 		-o jmtest_client jmtest/thrift-py/client/TestClient.cpp
