@@ -225,9 +225,10 @@ if(thriftpy3)
   )
   add_custom_command(TARGET thrift_python_types_bindings
     COMMAND ${CMAKE_COMMAND} -E env
+      "CFLAGS=${CMAKE_C_FLAGS}"
+      "CXXFLAGS=${CMAKE_CXX_FLAGS}"
       "CXX=${CMAKE_CXX_COMPILER}"
-      "LDSHARED=${CMAKE_CXX_COMPILER} -shared"
-      python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py --api-only
+      python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py -v --api-only
     BYPRODUCTS
       ${_cybld}/thrift/python/types_api.h
       ${_cybld}/thrift/python/server/server_api.h
@@ -355,8 +356,7 @@ if(thriftpy3)
       "CFLAGS=${CMAKE_C_FLAGS}"
       "CXXFLAGS=${CMAKE_CXX_FLAGS}"
       "CXX=${CMAKE_CXX_COMPILER}"
-      "LDSHARED=${CMAKE_CXX_COMPILER} -shared"
-      python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
+      python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py -v
       build_ext -f ${incs} ${libs} --libpython ${python_libname}
     WORKING_DIRECTORY ${_cybld}
   )
@@ -365,8 +365,7 @@ if(thriftpy3)
       "CFLAGS=${CMAKE_C_FLAGS}"
       "CXXFLAGS=${CMAKE_CXX_FLAGS}"
       "CXX=${CMAKE_CXX_COMPILER}"
-      "LDSHARED=${CMAKE_CXX_COMPILER} -shared"
-      python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
+      python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py -v
       bdist_wheel --libpython ${python_libname}
     WORKING_DIRECTORY ${_cybld}
   )
@@ -375,8 +374,7 @@ if(thriftpy3)
       "CFLAGS=${CMAKE_C_FLAGS}"
       "CXXFLAGS=${CMAKE_CXX_FLAGS}"
       "CXX=${CMAKE_CXX_COMPILER}"
-      "LDSHARED=${CMAKE_CXX_COMPILER} -shared"
-      python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
+      python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py -v
       install --prefix ${CMAKE_INSTALL_PREFIX} --libpython ${python_libname}
     WORKING_DIRECTORY ${_cybld}
   )
@@ -390,7 +388,7 @@ if(thriftpy3)
       COMMAND ${CMAKE_COMMAND} -E env
         \"CFLAGS=${CMAKE_C_FLAGS}\"
         \"CXXFLAGS=${CMAKE_CXX_FLAGS}\"
-        python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py install
+        python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py install -v
         --prefix ${py_install_dir} --libpython ${python_libname}
       COMMAND_ECHO STDOUT
       WORKING_DIRECTORY ${_cybld}
