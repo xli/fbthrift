@@ -224,10 +224,10 @@ if(thriftpy3)
     WORKING_DIRECTORY ${_cybld}
   )
   add_custom_command(TARGET thrift_python_types_bindings
-    COMMAND
-      CXX="${CMAKE_CXX_COMPILER}"
-      LDSHARED="${CMAKE_CXX_COMPILER} -shared"
-      python ${CMAKE_CURRENT_SOURCE_DIR}/setup.py --api-only
+    COMMAND ${CMAKE_COMMAND} -E env
+      "CXX=${CMAKE_CXX_COMPILER}"
+      "LDSHARED=${CMAKE_CXX_COMPILER} -shared"
+      python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py --api-only
     BYPRODUCTS
       ${_cybld}/thrift/python/types_api.h
       ${_cybld}/thrift/python/server/server_api.h
@@ -351,26 +351,26 @@ if(thriftpy3)
   endif()
 
   add_custom_command(TARGET thrift_python_and_py3_bindings
-    COMMAND
-      CXX="${CMAKE_CXX_COMPILER}"
-      LDSHARED="${CMAKE_CXX_COMPILER} -shared"
-      python ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
+    COMMAND ${CMAKE_COMMAND} -E env
+      "CXX=${CMAKE_CXX_COMPILER}"
+      "LDSHARED=${CMAKE_CXX_COMPILER} -shared"
+      python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
       build_ext -f ${incs} ${libs} --libpython ${python_libname}
     WORKING_DIRECTORY ${_cybld}
   )
   add_custom_command(TARGET thrift_python_and_py3_bindings
-    COMMAND
-      CXX="${CMAKE_CXX_COMPILER}"
-      LDSHARED="${CMAKE_CXX_COMPILER} -shared"
-      python ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
+    COMMAND ${CMAKE_COMMAND} -E env
+      "CXX=${CMAKE_CXX_COMPILER}"
+      "LDSHARED=${CMAKE_CXX_COMPILER} -shared"
+      python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
       bdist_wheel --libpython ${python_libname}
     WORKING_DIRECTORY ${_cybld}
   )
   add_custom_command(TARGET thrift_python_and_py3_bindings POST_BUILD
-    COMMAND
-      CXX="${CMAKE_CXX_COMPILER}"
-      LDSHARED="${CMAKE_CXX_COMPILER} -shared"
-      python ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
+    COMMAND ${CMAKE_COMMAND} -E env
+      "CXX=${CMAKE_CXX_COMPILER}"
+      "LDSHARED=${CMAKE_CXX_COMPILER} -shared"
+      python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
       install --prefix ${CMAKE_INSTALL_PREFIX} --libpython ${python_libname}
     WORKING_DIRECTORY ${_cybld}
   )
@@ -382,7 +382,7 @@ if(thriftpy3)
   install(CODE "
     execute_process(
       COMMAND
-        python ${CMAKE_CURRENT_SOURCE_DIR}/setup.py install
+        python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py install
         --prefix ${py_install_dir} --libpython ${python_libname}
       COMMAND_ECHO STDOUT
       WORKING_DIRECTORY ${_cybld}
