@@ -6,7 +6,7 @@ project(jmswen_add_cpp2)
 
 set(CMAKE_MODULE_PATH
   ${CMAKE_CURRENT_SOURCE_DIR}/cmake
-  ${CMAKE_CURRENT_SOURCE_DIR}/build/fbcode_builder/CMake
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../build/fbcode_builder/CMake
   ${CMAKE_MODULE_PATH}
 )
 
@@ -96,20 +96,8 @@ add_custom_target(
     jmswen_add_cpp2
 )
 
-# Set up include path based on the CMAKE_PREFIX_PATH envvar constructed by getdeps
-string(REPLACE ":" ";" _cmake_prefix_path $ENV{CMAKE_PREFIX_PATH})
 set(incs ".")
-foreach(_dir ${_cmake_prefix_path})
-  if (EXISTS "${_dir}/include")
-    list(APPEND incs "${_dir}/include")
-  endif()
-endforeach()
-
-# Similarly, set up library search path
-string(REPLACE ":" ";" libs $ENV{LD_LIBRARY_PATH})  # getdeps-installed libraries
-list(APPEND libs ${CMAKE_BINARY_DIR})
-get_filename_component(python_lib ${PYTHON_LIBRARY} DIRECTORY)
-list(APPEND libs ${python_lib})
+set(libs ${CMAKE_BINARY_DIR})
 
 # Build cython extensions and install thrift-py3 and thrift-python packages
 add_custom_command(TARGET thrift_python_and_py3_bindings
@@ -119,7 +107,7 @@ add_custom_command(TARGET thrift_python_and_py3_bindings
     python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
     build_ext -f "$<$<BOOL:${incs}>:-I$<JOIN:${incs},:>>" "$<$<BOOL:${libs}>:-L$<JOIN:${libs},:>>"
   COMMAND
-    python ${CMAKE_CURRENT_SOURCE_DIR}/setup.py install --prefix "${PYTHON_PACKAGE_INSTALL_DIR}"
+    python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py install
   WORKING_DIRECTORY
     ${CMAKE_BINARY_DIR}/gen-py3
 )
