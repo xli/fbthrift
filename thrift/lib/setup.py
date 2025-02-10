@@ -18,6 +18,7 @@
 # created as tree of links to the real source files.
 
 import sys
+import os
 
 import Cython
 from Cython.Build import cythonize

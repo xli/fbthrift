@@ -22,11 +22,11 @@ install:
 	make build target=boost
 	make build target=fmt
 	make build target=fast_float
-	make build target=folly
+	FOLLY_PYTHON_CXX_FLAGS="$(FOLLY_PYTHON_CXX_FLAGS)" make build target=folly
 	make build target=fizz
 	make build target=wangle
 	make build target=mvfst
-	make build target=fbthrift
+	FOLLY_PYTHON_CXX_FLAGS="$(FOLLY_PYTHON_CXX_FLAGS)" make build target=fbthrift
 
 
 build: target=fbthrift
