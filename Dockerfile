@@ -45,6 +45,7 @@ RUN apt install -y \
     libaio-dev
 
 RUN ln -s /usr/bin/python3 /usr/bin/python
+
 # Install Rust
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
