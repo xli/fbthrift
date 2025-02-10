@@ -27,7 +27,6 @@ libs = [
 
 common_options = {
     "language": "c++",
-    "extra_compile_args": ["-std=c++20"],
 }
 
 extensions = [

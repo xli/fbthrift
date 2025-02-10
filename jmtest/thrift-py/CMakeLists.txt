@@ -102,6 +102,9 @@ set(libs ${CMAKE_BINARY_DIR})
 # Build cython extensions and install thrift-py3 and thrift-python packages
 add_custom_command(TARGET thrift_python_and_py3_bindings
   COMMAND ${CMAKE_COMMAND} -E env
+    "CFLAGS=${CMAKE_C_FLAGS}"
+    "CXXFLAGS=${CMAKE_CXX_FLAGS}"
+    "CC=${CMAKE_C_COMPILER}"
     "CXX=${CMAKE_CXX_COMPILER}"
     "LDSHARED=${CMAKE_CXX_COMPILER} -shared"
     python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
