@@ -7,22 +7,23 @@ from setuptools import Extension, setup
 Options.fast_fail = True
 
 libs = [
-    "folly",
+    "jmswen_add_cpp2",
+    "thrift_python_cpp",
+    "thriftprotocol",
+    "thriftmetadata",
+    "thriftcpp2",
+    "thrift-core",
     "folly_python_cpp",
-    "glog",
-    # Thrift
     "async",
     "concurrency",
     "rpcmetadata",
     "runtime",
-    "thrift-core",
-    "thriftcpp2",
-    "thriftprotocol",
-    "thrift_python_cpp",
     "transport",
-    "thriftmetadata",
-    # User
-    "jmswen_add_cpp2",
+    "folly",
+    "glog",
+    "crypto",
+    "fmt",
+    "iberty",
 ]
 
 common_options = {

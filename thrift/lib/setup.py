@@ -61,23 +61,21 @@ else:
     del sys.argv[python_lib_idx:python_lib_idx + 2]
 
     libs = [
-        # fmt, folly, glog, openssl
-        "crypto",
-        "fmt",
-        "folly",
+        "thrift_python_cpp",
+        "thriftprotocol",
+        "thriftmetadata",
+        "thriftcpp2",
+        "thrift-core",
         "folly_python_cpp",
-        "glog",
-        # Thrift
         "async",
         "concurrency",
         "rpcmetadata",
         "runtime",
-        "thrift-core",
-        "thriftcpp2",
-        "thriftprotocol",
-        "thrift_python_cpp",
         "transport",
-        "thriftmetadata",
+        "folly",
+        "glog",
+        "crypto",
+        "fmt",
         "iberty",
     ] + [
         python_lib
