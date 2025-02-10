@@ -52,3 +52,7 @@ jmtest:
 		-DCMAKE_CXX_STANDARD=20 \
 		-DBoost_COMPILER=vc142 \
 		-G Ninja
+	ninja install
+
+jmtest-server:
+	python3 jmtest/server/server.py

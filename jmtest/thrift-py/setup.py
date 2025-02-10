@@ -7,7 +7,6 @@ from setuptools import Extension, setup
 Options.fast_fail = True
 
 libs = [
-    "python3.12",
     "folly",
     "folly_python_cpp",
     "glog",
@@ -28,7 +27,7 @@ libs = [
 
 common_options = {
     "language": "c++",
-    "extra_compile_args": ["-std=c++20", "-msse4.2"],
+    "extra_compile_args": ["-std=c++20"],
 }
 
 extensions = [

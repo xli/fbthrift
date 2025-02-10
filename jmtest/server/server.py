@@ -25,7 +25,7 @@ class AddHandler(AddServiceInterface):
 async def go() -> None:
     print("Starting server...")
     handler = AddHandler()
-    server = ThriftServer(handler, port=12345)
+    server = ThriftServer(handler, port=80)
 
     server.set_max_requests(4)
     server.set_queue_timeout(1)
