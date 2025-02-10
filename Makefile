@@ -1,11 +1,11 @@
 
-PYTHON_INSTALL_DIR=/usr
+INSTALL_DIR=/usr/local
+PYTHON_INSTALL_DIR=/usr/local
 PYTHON_INCLUDE_DIR=/usr/include/python3.10/
 PYTHON_LIBRARY=/usr/lib/aarch64-linux-gnu/libpython3.10.so
 PY_CMAKE="PYTHON_PACKAGE_INSTALL_DIR": "$(PYTHON_INSTALL_DIR)", "PYTHON_INCLUDE_DIR": "$(PYTHON_INCLUDE_DIR)", "PYTHON_LIBRARY": "$(PYTHON_LIBRARY)", "PYTHON_LIBRARIES": "$(PYTHON_LIBRARY)", "PYTHON_EXTENSIONS": "ON", "thriftpy3": "ON"
 CMAKE_C_FLAGS=
 CMAKE_CXX_FLAGS=-std=gnu++20 -D_GLIBCXX_USE_CXX11_ABI=0 -fcoroutines -I$(PYTHON_INCLUDE_DIR)
-INSTALL_DIR=/usr/local
 CMAKE_DEFINES='{$(PY_CMAKE), "CMAKE_POSITION_INDEPENDENT_CODE": "ON", "CMAKE_CXX_FLAGS": "$(CMAKE_CXX_FLAGS)"}'
 
 .PHONY: env install build dock
@@ -42,3 +42,13 @@ build:
 dock:
 	docker build --no-cache -t fbthrift-image .
 	docker run -it fbthrift-image
+
+
+jmtest:
+	cmake jmtest/thrift-py -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) \
+		-DPYTHON_PACKAGE_INSTALL_DIR=$(INSTALL_DIR) \
+		-DCMAKE_CXX_FLAGS="$(CMAKE_CXX_FLAGS)" \
+		-DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+		-DCMAKE_CXX_STANDARD=20 \
+		-DBoost_COMPILER=vc142 \
+		-G Ninja

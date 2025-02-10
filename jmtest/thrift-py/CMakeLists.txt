@@ -6,9 +6,6 @@ project(jmswen_add_cpp2)
 
 set(CMAKE_MODULE_PATH
   ${CMAKE_CURRENT_SOURCE_DIR}/cmake
-  # For in-fbsource builds:
-  ${CMAKE_CURRENT_SOURCE_DIR}/../opensource/fbcode_builder/CMake
-  # For shipit-transformed builds:
   ${CMAKE_CURRENT_SOURCE_DIR}/build/fbcode_builder/CMake
   ${CMAKE_MODULE_PATH}
 )
@@ -116,9 +113,10 @@ list(APPEND libs ${python_lib})
 
 # Build cython extensions and install thrift-py3 and thrift-python packages
 add_custom_command(TARGET thrift_python_and_py3_bindings
-  COMMAND
-    CXX="${CMAKE_CXX_COMPILER}" LDSHARED="${CMAKE_CXX_COMPILER} -shared"
-    python ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
+  COMMAND ${CMAKE_COMMAND} -E env
+    "CXX=${CMAKE_CXX_COMPILER}"
+    "LDSHARED=${CMAKE_CXX_COMPILER} -shared"
+    python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
     build_ext -f "$<$<BOOL:${incs}>:-I$<JOIN:${incs},:>>" "$<$<BOOL:${libs}>:-L$<JOIN:${libs},:>>"
   COMMAND
     python ${CMAKE_CURRENT_SOURCE_DIR}/setup.py install --prefix "${PYTHON_PACKAGE_INSTALL_DIR}"
