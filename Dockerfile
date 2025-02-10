@@ -40,7 +40,6 @@ RUN apt install -y \
     patchelf \
     libgflags-dev \
     libgtest-dev \
-    libboost-all-dev \
     libgoogle-glog-dev \
     libaio-dev
 

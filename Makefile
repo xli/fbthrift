@@ -18,6 +18,7 @@ env:
 
 
 install:
+	make build target=boost
 	make build target=fmt
 	make build target=fast_float
 	make build target=folly
@@ -33,6 +34,7 @@ build:
 		--allow-system-packages \
 		build $(target) \
 		--extra-cmake-defines $(CMAKE_DEFINES) \
+		--extra-b2-args "cxxflags=-fPIC" --extra-b2-args "cflags=-fPIC" \
 		--install-dir $(INSTALL_DIR) \
 		--no-test --clean --no-deps \
 		2>&1 | tee build_$(target).log
