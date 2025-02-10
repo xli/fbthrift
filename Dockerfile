@@ -60,7 +60,7 @@ RUN git clone https://github.com/xli/fbthrift.git
 WORKDIR /app/fbthrift
 
 # Install
-RUN make env install jmtest
+RUN make env
 
 
 # Make port 80 available to the world outside this container

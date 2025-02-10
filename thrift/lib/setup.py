@@ -73,6 +73,7 @@ else:
         "runtime",
         "transport",
         "folly",
+        "snappy",
         "glog",
         "crypto",
         "fmt",
