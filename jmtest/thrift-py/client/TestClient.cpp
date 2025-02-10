@@ -12,7 +12,7 @@
 
 #include <thrift/lib/cpp2/async/PooledRequestChannel.h>
 #include <thrift/lib/cpp2/async/RocketClientChannel.h>
-#include "scripts/jmswen/thrift-py/gen-cpp2/AddServiceAsyncClient.h"
+#include "gen-cpp2/AddServiceAsyncClient.h"
 
 int main(int argc, char* argv[]) {
   folly::init(&argc, &argv);

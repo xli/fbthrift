@@ -8,7 +8,7 @@ CMAKE_C_FLAGS=
 CMAKE_CXX_FLAGS=-std=gnu++20 -D_GLIBCXX_USE_CXX11_ABI=0 -fcoroutines -I$(PYTHON_INCLUDE_DIR)
 CMAKE_DEFINES='{$(PY_CMAKE), "CMAKE_POSITION_INDEPENDENT_CODE": "ON", "CMAKE_CXX_FLAGS": "$(CMAKE_CXX_FLAGS)"}'
 
-.PHONY: env install build dock jmtest
+.PHONY: env install build dock jmtest jmtest-server jmtest-client
 
 env:
 	pip install --upgrade pip
@@ -56,3 +56,9 @@ jmtest:
 
 jmtest-server:
 	python3 jmtest/server/server.py
+
+
+jmtest-client:
+	g++ -Wall -O2 -g $(CMAKE_CXX_FLAGS) \
+		-lfolly -lasync -lthrift -ljmswen_add_cpp2
+		-o jmtest_client jmtest/thrift-py/client/TestClient.cpp
