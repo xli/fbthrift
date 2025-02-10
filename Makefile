@@ -38,7 +38,7 @@ build:
 		--extra-b2-args "cxxflags=-fPIC" --extra-b2-args "cflags=-fPIC" \
 		--install-dir $(INSTALL_DIR) \
 		--no-test --clean --no-deps \
-		2>&1 | tee build_$(target).log
+		2>&1 | tee /var/log/build_$(target).log
 
 dock:
 	docker build --no-cache -t fbthrift-image .
