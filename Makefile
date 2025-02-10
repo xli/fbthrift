@@ -19,6 +19,8 @@ env:
 
 
 install:
+	make build target=googletest
+	make build target=gflags
 	make build target=boost
 	make build target=fmt
 	make build target=glog
