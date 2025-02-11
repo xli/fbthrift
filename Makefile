@@ -70,4 +70,4 @@ jmtest-server:
 	python3 jmtest/server/server.py
 
 jmtest-client:
-	$(JMTEST_BUILD_DIR)/test_client
+	seq 1 100 | parallel -j 100 $(JMTEST_BUILD_DIR)/test_client

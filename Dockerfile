@@ -58,7 +58,8 @@ RUN apt install -y \
     libgtest-dev \
     libgoogle-glog-dev \
     libbz2-dev \
-    libaio-dev
+    libaio-dev \
+    parallel
 
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
