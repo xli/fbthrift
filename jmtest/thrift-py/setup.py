@@ -45,7 +45,7 @@ libs = [
 
 common_options = {
     "language": "c++",
-    "extra_compile_args": "-static",
+    "extra_compile_args": ["-static"],
 }
 
 extensions = [
