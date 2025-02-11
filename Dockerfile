@@ -7,12 +7,28 @@ WORKDIR /app
 # Update the package index
 RUN apt update -y
 
+RUN apt-get install -y --no-install-recommends \
+    build-essential \
+    libc6-dev \
+    zlib1g-dev \
+    libncurses5-dev
+
+# Install Clang and Clang++
+RUN apt-get install -y --no-install-recommends \
+    clang \
+    libc++-dev \
+    libc++abi-dev
+# Set environment variables
+ENV CC=clang
+ENV CXX=clang++
+# Verify the installation
+RUN clang --version
+RUN clang++ --version
+
 # Install dependencies
 RUN apt install -y \
     python3.10 \
     python3-pip \
-    build-essential \
-    gcc \
     make \
     cmake \
     libssl-dev \
@@ -42,7 +58,8 @@ RUN apt install -y \
     libgtest-dev \
     libgoogle-glog-dev \
     libbz2-dev \
-    libaio-dev
+    libaio-dev \
+    liburing-dev
 
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
@@ -61,7 +78,7 @@ RUN git clone https://github.com/xli/fbthrift.git
 WORKDIR /app/fbthrift
 
 # Install
-RUN make env install
+RUN make env
 
 
 # Make port 80 available to the world outside this container
