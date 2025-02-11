@@ -41,6 +41,7 @@ RUN apt install -y \
     libgflags-dev \
     libgtest-dev \
     libgoogle-glog-dev \
+    libbz2-dev \
     libaio-dev
 
 RUN ln -s /usr/bin/python3 /usr/bin/python
