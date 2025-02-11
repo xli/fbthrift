@@ -106,7 +106,6 @@ add_custom_command(TARGET thrift_python_and_py3_bindings
     "CXXFLAGS=${CMAKE_CXX_FLAGS}"
     "CC=${CMAKE_C_COMPILER}"
     "CXX=${CMAKE_CXX_COMPILER}"
-    "LDSHARED=${CMAKE_CXX_COMPILER} -shared"
     python3 ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
     build_ext -f "$<$<BOOL:${incs}>:-I$<JOIN:${incs},:>>" "$<$<BOOL:${libs}>:-L$<JOIN:${libs},:>>"
   COMMAND
