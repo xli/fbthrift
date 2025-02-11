@@ -115,6 +115,7 @@ add_custom_command(TARGET thrift_python_and_py3_bindings
 )
 
 add_executable(test_client client/TestClient.cpp)
+target_include_directories(test_client PRIVATE ${CMAKE_BINARY_DIR}/gen-cpp2)
 target_link_libraries(test_client
   jmswen_add_cpp2
   Folly::folly
