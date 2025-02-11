@@ -1,0 +1,14 @@
+diff --git a/wangle/CMakeLists.txt b/wangle/CMakeLists.txt
+index 041e73c2..e8815b41 100644
+--- a/wangle/CMakeLists.txt
++++ b/wangle/CMakeLists.txt
+@@ -28,9 +28,7 @@ set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+ set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
+ include(CPack)
+ 
+-set(CMAKE_CXX_STANDARD 17)
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)
+-set(CMAKE_CXX_EXTENSIONS OFF)
+ 
+ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+ set(CMAKE_MODULE_PATH
