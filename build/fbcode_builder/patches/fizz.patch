@@ -1,12 +1,14 @@
 diff --git a/fizz/CMakeLists.txt b/fizz/CMakeLists.txt
-index d16e76e0..4b75afe7 100644
+index d16e76e0..ed54c4ec 100644
 --- a/fizz/CMakeLists.txt
 +++ b/fizz/CMakeLists.txt
-@@ -14,7 +14,6 @@ if (NOT DEFINED CPACK_GENERATOR)
+@@ -14,9 +14,7 @@ if (NOT DEFINED CPACK_GENERATOR)
  endif()
  include(CPack)
  
 -set(CMAKE_CXX_STANDARD 17)
  set(CMAKE_CXX_STANDARD_REQUIRED ON)
- set(CMAKE_CXX_EXTENSIONS OFF)
+-set(CMAKE_CXX_EXTENSIONS OFF)
  
+ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+ set(CMAKE_MODULE_PATH
