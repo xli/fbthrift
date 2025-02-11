@@ -27,8 +27,8 @@ async def go() -> None:
     handler = AddHandler()
     server = ThriftServer(handler, port=80)
 
-    server.set_max_requests(4)
-    server.set_queue_timeout(1)
+    server.set_max_requests(400000)
+    server.set_queue_timeout(10)
 
     loop = asyncio.get_event_loop()
     for signal in [SIGINT, SIGTERM]:
