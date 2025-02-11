@@ -19,11 +19,11 @@ env:
 
 
 install:
-	make build target=googletest
-	make build target=gflags
-	make build target=boost
+#	make build target=googletest
+#	make build target=gflags
+#	make build target=boost
+#	make build target=glog
 	make build target=fmt
-	make build target=glog
 	make build target=fast_float
 	FOLLY_PYTHON_CXX_FLAGS="$(FOLLY_PYTHON_CXX_FLAGS)" make build target=folly
 	make build target=fizz
@@ -55,11 +55,12 @@ jmtest:
 		-DCMAKE_POSITION_INDEPENDENT_CODE=ON \
 		-DCMAKE_CXX_STANDARD=20 \
 		-DBoost_COMPILER=vc142 \
+		-DBUILD_SHARED_LIBS=ON \
 		-G Ninja
 	ninja install
 
 jmtest-server:
-	python3 jmtest/server/server.py
+	LD_LIBRARY_PATH=/usr/local/lib python3 jmtest/server/server.py
 
 
 jmtest-client:

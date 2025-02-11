@@ -38,6 +38,10 @@ RUN apt install -y \
     git \
     curl \
     patchelf \
+    libgflags-dev \
+    libgtest-dev \
+    libboost-all-dev \
+    libgoogle-glog-dev \
     libaio-dev
 
 RUN ln -s /usr/bin/python3 /usr/bin/python
