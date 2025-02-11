@@ -113,3 +113,10 @@ add_custom_command(TARGET thrift_python_and_py3_bindings
   WORKING_DIRECTORY
     ${CMAKE_BINARY_DIR}/gen-py3
 )
+
+add_executable(test_client client/TestClient.cpp)
+target_link_libraries(test_client
+  jmswen_add_cpp2
+  Folly::folly
+  FBThrift::async
+)

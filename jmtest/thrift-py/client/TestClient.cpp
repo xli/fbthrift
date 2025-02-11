@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
 
   auto channel = apache::thrift::PooledRequestChannel::newSyncChannel(
       folly::getIOExecutor(), [&](folly::EventBase& evb) {
-        const folly::SocketAddress address("::1", 12345);
+        const folly::SocketAddress address("127.0.0.1", 80);
 
         apache::thrift::RequestSetupMetadata meta;
         auto socket =

@@ -10,8 +10,9 @@ CMAKE_CXX_FLAGS=-std=gnu++20 -O2 -fcoroutines -I$(PYTHON_INCLUDE_DIR)
 CMAKE_DEBUG="CMAKE_VERBOSE_MAKEFILE": "ON", "CMAKE_VERBOSE_DEBUG": "ON"
 CMAKE_DEFINES='{$(PY_CMAKE), "CMAKE_POSITION_INDEPENDENT_CODE": "ON", "CMAKE_CXX_FLAGS": "$(CMAKE_CXX_FLAGS)", $(BUILD_SHARED_LIBS), $(CMAKE_DEBUG)}'
 FOLLY_PYTHON_CXX_FLAGS=$(CMAKE_CXX_FLAGS)
+JMTEST_BUILD_DIR=/tmp/jmtest
 
-.PHONY: env install build dock jmtest jmtest-server jmtest-client
+.PHONY: env install build dock jmtest jmtest-server
 
 env:
 	pip install --upgrade pip
@@ -51,22 +52,22 @@ dock:
 
 
 jmtest:
-	cmake jmtest/thrift-py -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) \
+	-rm -rf $(JMTEST_BUILD_DIR)
+	cp -r jmtest/thrift-py $(JMTEST_BUILD_DIR)
+	cp build/fbcode_builder/CMake/* $(JMTEST_BUILD_DIR)/cmake
+	cd $(JMTEST_BUILD_DIR) && cmake $(JMTEST_BUILD_DIR) -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) \
+		-DCMAKE_PREFIX_PATH=$(INSTALL_DIR) \
 		-DPYTHON_PACKAGE_INSTALL_DIR=$(INSTALL_DIR) \
 		-DCMAKE_CXX_FLAGS="$(CMAKE_CXX_FLAGS)" \
 		-DCMAKE_POSITION_INDEPENDENT_CODE=ON \
 		-DCMAKE_CXX_STANDARD=20 \
-		-DBoost_COMPILER=vc142 \
 		-DBUILD_SHARED_LIBS=ON \
 		-G Ninja
-	ninja install
+	cd $(JMTEST_BUILD_DIR) && cmake --build . --target install
+
 
 jmtest-server:
-	LD_LIBRARY_PATH=/usr/local/lib python3 jmtest/server/server.py
-
+	python3 jmtest/server/server.py
 
 jmtest-client:
-	c++ -Wall -O2 -g $(CMAKE_CXX_FLAGS) -I. \
-		-lthrift_python_cpp -lthriftcpp2 -lthriftmetadata -lthriftanyrep -lthrifttype -lthrifttyperep -lthriftprotocol -lthrift-core -lfolly_python_cpp -lasync -lconcurrency -lrpcmetadata -lruntime -ltransport -lfolly -lsnappy -levent -ldouble-conversion -llz4 -lzstd -llzma -lglog -lcrypto -lfmt -liberty -lboost_context -lunwind \
-		-ljmswen_add_cpp2 \
-		-o jmtest_client jmtest/thrift-py/client/TestClient.cpp
+	$(JMTEST_BUILD_DIR)/test_client
