@@ -58,8 +58,7 @@ RUN apt install -y \
     libgtest-dev \
     libgoogle-glog-dev \
     libbz2-dev \
-    libaio-dev \
-    liburing-dev
+    libaio-dev
 
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
@@ -78,7 +77,7 @@ RUN git clone https://github.com/xli/fbthrift.git
 WORKDIR /app/fbthrift
 
 # Install
-RUN make env
+RUN make env install
 
 
 # Make port 80 available to the world outside this container

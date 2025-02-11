@@ -47,8 +47,8 @@ build:
 		2>&1 | tee /var/log/build_$(target).log
 
 dock:
-	docker build --no-cache -t fbthrift-shared-image .
-	docker run -it fbthrift-shared-image
+	docker build --no-cache -t jmtest .
+	docker run -it jmtest
 
 
 jmtest:
