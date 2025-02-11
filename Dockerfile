@@ -40,7 +40,6 @@ RUN apt install -y \
     patchelf \
     libgflags-dev \
     libgtest-dev \
-    libboost-all-dev \
     libgoogle-glog-dev \
     libaio-dev
 
@@ -68,7 +67,7 @@ RUN make env
 EXPOSE 80
 
 # Define environment variable
-ENV Hello=World
+ENV LD_LIBRARY_PATH=/usr/local/lib
 
 # Run bash when the container launches
 CMD ["bash"]

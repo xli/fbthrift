@@ -6,7 +6,8 @@ PYTHON_LIBRARY=/usr/lib/aarch64-linux-gnu/libpython3.10.so
 PY_CMAKE="PYTHON_PACKAGE_INSTALL_DIR": "$(PYTHON_INSTALL_DIR)", "PYTHON_INCLUDE_DIR": "$(PYTHON_INCLUDE_DIR)", "PYTHON_LIBRARY": "$(PYTHON_LIBRARY)", "PYTHON_LIBRARIES": "$(PYTHON_LIBRARY)", "PYTHON_EXTENSIONS": "ON", "thriftpy3": "ON"
 CMAKE_C_FLAGS=
 CMAKE_CXX_FLAGS=-std=gnu++20 -O2 -D_GLIBCXX_USE_CXX11_ABI=0 -fcoroutines -I$(PYTHON_INCLUDE_DIR)
-CMAKE_DEFINES='{$(PY_CMAKE), "CMAKE_POSITION_INDEPENDENT_CODE": "ON", "CMAKE_CXX_FLAGS": "$(CMAKE_CXX_FLAGS)", $(BUILD_SHARE)}'
+CMAKE_DEBUG="CMAKE_VERBOSE_MAKEFILE": "ON", "CMAKE_VERBOSE_DEBUG": "ON"
+CMAKE_DEFINES='{$(PY_CMAKE), "CMAKE_POSITION_INDEPENDENT_CODE": "ON", "CMAKE_CXX_FLAGS": "$(CMAKE_CXX_FLAGS)", $(BUILD_SHARE), $(CMAKE_DEBUG)}'
 FOLLY_PYTHON_CXX_FLAGS=$(CMAKE_CXX_FLAGS)
 
 .PHONY: env install build dock jmtest jmtest-server jmtest-client
@@ -21,8 +22,8 @@ env:
 install:
 #	make build target=googletest
 #	make build target=gflags
-#	make build target=boost
 #	make build target=glog
+	make build target=boost
 	make build target=fmt
 	make build target=fast_float
 	FOLLY_PYTHON_CXX_FLAGS="$(FOLLY_PYTHON_CXX_FLAGS)" make build target=folly
