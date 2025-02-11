@@ -99,7 +99,6 @@ install(
     ${CMAKE_BINARY_DIR}/gen-cpp2/AddServiceAsyncClient.h
   DESTINATION
   include/gen-cpp2
-  DEPENDS install_headers
 )
 
 #######################
