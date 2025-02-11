@@ -89,14 +89,21 @@ install(TARGETS jmswen_add_cpp2)
 
 install(
   FILES
-    ${CMAKE_BINARY_DIR}/gen-cpp2/add_types.h
-    ${CMAKE_BINARY_DIR}/gen-cpp2/AddService_processmap_binary.h
-    ${CMAKE_BINARY_DIR}/gen-cpp2/AddService_processmap_compact.h
-    ${CMAKE_BINARY_DIR}/gen-cpp2/add_constants.h
-    ${CMAKE_BINARY_DIR}/gen-cpp2/add_data.h
-    ${CMAKE_BINARY_DIR}/gen-cpp2/add_metadata.h
     ${CMAKE_BINARY_DIR}/gen-cpp2/AddService.h
     ${CMAKE_BINARY_DIR}/gen-cpp2/AddServiceAsyncClient.h
+    ${CMAKE_BINARY_DIR}/gen-cpp2/AddService_custom_protocol.h
+    ${CMAKE_BINARY_DIR}/gen-cpp2/add_clients.h
+    ${CMAKE_BINARY_DIR}/gen-cpp2/add_constants.h
+    ${CMAKE_BINARY_DIR}/gen-cpp2/add_data.h
+    ${CMAKE_BINARY_DIR}/gen-cpp2/add_for_each_field.h
+    ${CMAKE_BINARY_DIR}/gen-cpp2/add_handlers.h
+    ${CMAKE_BINARY_DIR}/gen-cpp2/add_metadata.h
+    ${CMAKE_BINARY_DIR}/gen-cpp2/add_types.h
+    ${CMAKE_BINARY_DIR}/gen-cpp2/add_types_custom_protocol.h
+    ${CMAKE_BINARY_DIR}/gen-cpp2/add_types_fwd.h
+    ${CMAKE_BINARY_DIR}/gen-cpp2/add_visit_by_thrift_field_metadata.h
+    ${CMAKE_BINARY_DIR}/gen-cpp2/add_visit_union.h
+    ${CMAKE_BINARY_DIR}/gen-cpp2/add_visitation.h
   DESTINATION
   include/gen-cpp2
 )
