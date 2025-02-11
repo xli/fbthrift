@@ -120,3 +120,4 @@ target_link_libraries(test_client
   Folly::folly
   FBThrift::async
 )
+add_dependencies(test_client jmswen_add_cpp2)
