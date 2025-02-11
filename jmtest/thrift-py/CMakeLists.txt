@@ -87,7 +87,6 @@ target_link_libraries(
 )
 install(TARGETS jmswen_add_cpp2)
 
-add_custom_target(install_headers)
 install(
   FILES
     ${CMAKE_BINARY_DIR}/gen-cpp2/add_types.h
@@ -102,16 +101,6 @@ install(
   include/gen-cpp2
   DEPENDS install_headers
 )
-add_dependencies(install_headers jmswen_add_cpp2)
-add_executable(test_client client/TestClient.cpp)
-target_link_libraries(test_client
-  jmswen_add_cpp2
-  Folly::folly
-  FBThrift::async
-  atomic
-)
-add_dependencies(test_client jmswen_add_cpp2)
-add_dependencies(test_client install_headers)
 
 #######################
 # Build and install thrift-py3 bindings
@@ -139,3 +128,13 @@ add_custom_command(TARGET thrift_python_and_py3_bindings
   WORKING_DIRECTORY
     ${CMAKE_BINARY_DIR}/gen-py3
 )
+
+add_executable(test_client client/TestClient.cpp)
+target_include_directories(test_client PRIVATE ${CMAKE_BINARY_DIR})
+target_link_libraries(test_client
+  jmswen_add_cpp2
+  Folly::folly
+  FBThrift::async
+  atomic
+)
+add_dependencies(test_client jmswen_add_cpp2)
