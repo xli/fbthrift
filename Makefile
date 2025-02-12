@@ -9,7 +9,6 @@ CMAKE_C_FLAGS=
 CMAKE_CXX_FLAGS=-std=gnu++20 -O2 -fcoroutines-ts -I$(PYTHON_INCLUDE_DIR)
 CMAKE_DEBUG="CMAKE_VERBOSE_MAKEFILE": "ON", "CMAKE_VERBOSE_DEBUG": "ON"
 CMAKE_DEFINES='{$(PY_CMAKE), "CMAKE_CXX_STANDARD": "20", "CMAKE_POSITION_INDEPENDENT_CODE": "ON", "CMAKE_CXX_FLAGS": "$(CMAKE_CXX_FLAGS)", $(BUILD_SHARED_LIBS), $(CMAKE_DEBUG)}'
-FOLLY_PYTHON_CXX_FLAGS=$(CMAKE_CXX_FLAGS)
 JMTEST_BUILD_DIR=/tmp/jmtest
 
 .PHONY: env install build dock jmtest jmtest-server
@@ -28,11 +27,11 @@ install:
 	make build target=boost
 	make build target=fmt
 	make build target=fast_float
-	FOLLY_PYTHON_CXX_FLAGS="$(FOLLY_PYTHON_CXX_FLAGS)" make build target=folly
+	make build target=folly
 	make build target=fizz
 	make build target=wangle
 	make build target=mvfst
-	FOLLY_PYTHON_CXX_FLAGS="$(FOLLY_PYTHON_CXX_FLAGS)" make build target=fbthrift
+	make build target=fbthrift
 
 
 build: target=fbthrift
