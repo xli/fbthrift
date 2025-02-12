@@ -1,13 +1,15 @@
+BUILD_SHARED_LIBS="BUILD_SHARED_LIBS": "ON", "BOOST_LINK_STATIC": "OFF"
 INSTALL_DIR=/usr/local
 PYTHON_INSTALL_DIR=/usr/local
 PYTHON_INCLUDE_DIR=/usr/include/python3.10/
 PYTHON_LIBRARY=/usr/lib/aarch64-linux-gnu/libpython3.10.so
 PY_CMAKE="PYTHON_PACKAGE_INSTALL_DIR": "$(PYTHON_INSTALL_DIR)", "PYTHON_INCLUDE_DIR": "$(PYTHON_INCLUDE_DIR)", "PYTHON_LIBRARY": "$(PYTHON_LIBRARY)", "PYTHON_LIBRARIES": "$(PYTHON_LIBRARY)", "PYTHON_EXTENSIONS": "ON", "thriftpy3": "ON"
-
-CMAKE_CXX_FLAGS=-std=gnu++20 -O2 -fcoroutines-ts -I$(PYTHON_INCLUDE_DIR) -D_GLIBCXX_USE_CXX11_ABI=0
+CMAKE_C_FLAGS=
+#-D_GLIBCXX_USE_CXX11_ABI=0
+CMAKE_CXX_FLAGS=-std=gnu++20 -O2 -fcoroutines-ts -I$(PYTHON_INCLUDE_DIR)
 CMAKE_DEBUG="CMAKE_VERBOSE_MAKEFILE": "ON", "CMAKE_VERBOSE_DEBUG": "ON"
-
-CMAKE_DEFINES='{$(PY_CMAKE), "CMAKE_CXX_STANDARD": "20", "CMAKE_POSITION_INDEPENDENT_CODE": "ON", "CMAKE_CXX_FLAGS": "$(CMAKE_CXX_FLAGS)", "BUILD_SHARED_LIBS": "ON", "BOOST_LINK_STATIC": "OFF"}'
+CMAKE_DEFINES='{$(PY_CMAKE), "CMAKE_CXX_STANDARD": "20", "CMAKE_POSITION_INDEPENDENT_CODE": "ON", "CMAKE_CXX_FLAGS": "$(CMAKE_CXX_FLAGS)", $(BUILD_SHARED_LIBS), $(CMAKE_DEBUG)}'
+FOLLY_PYTHON_CXX_FLAGS=$(CMAKE_CXX_FLAGS)
 JMTEST_BUILD_DIR=/tmp/jmtest
 
 .PHONY: env install build dock jmtest jmtest-server
@@ -26,11 +28,11 @@ install:
 	make build target=boost
 	make build target=fmt
 	make build target=fast_float
-	make build target=folly
+	FOLLY_PYTHON_CXX_FLAGS="$(FOLLY_PYTHON_CXX_FLAGS)" make build target=folly
 	make build target=fizz
 	make build target=wangle
 	make build target=mvfst
-	make build target=fbthrift
+	FOLLY_PYTHON_CXX_FLAGS="$(FOLLY_PYTHON_CXX_FLAGS)" make build target=fbthrift
 
 
 build: target=fbthrift
