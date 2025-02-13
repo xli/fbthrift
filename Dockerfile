@@ -1,75 +1,115 @@
-# Use the official Ubuntu 22.04 image as the base
-FROM ubuntu:22.04
+FROM quay.io/centos/centos:9
 
 # Set the working directory in the container to /app
 WORKDIR /app
 
 # Update the package index
-RUN apt update -y
+RUN dnf update -y
 
-RUN apt-get install -y --no-install-recommends \
-    build-essential \
-    libc6-dev \
-    zlib1g-dev \
-    libncurses5-dev
+# compilers and deps
+RUN dnf install -y \
+    epel-release \
+    gcc \
+    gcc-c++ \
+    libstdc++-devel \
+    glibc-devel \
+    zlib-devel \
+    ncurses-devel
 
 # Install Clang and Clang++
-RUN apt-get install -y --no-install-recommends \
+RUN dnf install -y \
     clang \
-    libc++-dev \
-    libc++abi-dev
-# Set environment variables
+    llvm-devel \
+    llvm-toolset
+
+# # Set environment variables
 ENV CC=clang
 ENV CXX=clang++
-# Verify the installation
+# # Verify the installation
 RUN clang --version
 RUN clang++ --version
 
-# Install dependencies
-RUN apt install -y \
-    python3.10 \
-    python3-pip \
+# enable crb for install ninja-build
+RUN dnf config-manager --enable crb
+# tools
+RUN dnf install -y \
+    git \
     make \
     cmake \
-    libssl-dev \
-    openssl \
-    libdwarf-dev \
-    libevent-dev \
-    zlib1g-dev \
-    liblz4-dev \
-    libsnappy-dev \
-    libzstd-dev \
     autoconf \
     automake \
     libtool \
-    libdouble-conversion-dev \
-    libsodium-dev \
-    libxxhash-dev \
     ninja-build \
-    xxhash \
-    zstd \
-    libiberty-dev \
-    libunwind-dev \
-    xz-utils \
-    git \
-    curl \
-    patchelf \
-    libgflags-dev \
-    libgtest-dev \
-    libgoogle-glog-dev \
-    libbz2-dev \
-    libaio-dev \
-    parallel
+    emacs-nox \
+    parallel \
+    which
 
-RUN ln -s /usr/bin/python3 /usr/bin/python
+# Install folly dependencies
+# build fmt, because centos fmt version is too old
+RUN dnf install -y \
+    openssl-devel \
+    openssl \
+    gflags-devel \
+    gtest-devel \
+    glog-devel \
+    boost-devel \
+    boost-static \
+    libdwarf-devel \
+    libevent-devel \
+    libsodium-devel \
+    double-conversion-devel \
+    fast_float-devel \
+    lz4-devel \
+    snappy-devel \
+    libunwind-devel \
+    xz \
+    zstd \
+    binutils-devel # for libiberty
+
+# Install fizz dependencies
+# already installed:
+#   * libsodium
+#   * zstd-devel
+# will be built:
+#   * folly
+#   * liboqs
+RUN dnf install -y \
+    zlib-devel
+
+
+# Install fbthrift dependencies
+# already installed:
+#   * fmt
+#   * googletest
+#   * libsodium
+#   * zstd
+# will be built:
+#   * wangle
+#   * mvfst
+#   * folly
+#   * fizz
+RUN dnf install -y \
+    xxhash-devel \
+    xxhash \
+    bzip2-devel \
+    libaio-devel \
+    lzma
+
+
+# Install llm predictor dependencies
+RUN dnf install -y \
+    python3.12 \
+    python3.12-devel \
+    python3.12-pip
+
+RUN ln -sf /usr/bin/python3.12 /usr/bin/python3
+RUN ln -sf /usr/bin/python3 /usr/bin/python
 
 # Install Rust
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 RUN rustc --version
 
-# Install Emacs
-RUN apt install -y emacs-nox
 
 # Clone the fbthrift Git project
 RUN git clone https://github.com/xli/fbthrift.git
@@ -78,14 +118,14 @@ RUN git clone https://github.com/xli/fbthrift.git
 WORKDIR /app/fbthrift
 
 # Install
-RUN make env install jmtest
+RUN make env
 
 
 # Make port 80 available to the world outside this container
 EXPOSE 80
 
 # Define environment variable
-ENV LD_LIBRARY_PATH=/usr/local/lib
+ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64
 
 # Run bash when the container launches
 CMD ["bash"]
