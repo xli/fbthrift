@@ -93,7 +93,7 @@ RUN dnf install -y \
     xxhash \
     bzip2-devel \
     libaio-devel \
-    lzma
+    xz-devel
 
 
 # Install llm predictor dependencies

@@ -17,7 +17,7 @@ env:
 	pip install setuptools
 	pip install setuptools_rust
 	pip install wheel
-	pip install Cython
+	pip install Cython==3.0.11
 
 
 install:

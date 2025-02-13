@@ -10,7 +10,6 @@ repo_url = https://github.com/facebookincubator/fizz.git
 [build]
 builder = cmake
 subdir = fizz
-patchfile = fizz.patch
 
 [cmake.defines]
 BUILD_EXAMPLES = OFF
