@@ -101,13 +101,13 @@ RUN dnf install -y \
 
 # Install llm predictor dependencies
 RUN dnf install -y \
-    python3.10 \
-    python3.10-devel \
-    python3.10-pip
+    python3.11 \
+    python3.11-devel \
+    python3.11-pip
 
-RUN ln -sf /usr/bin/python3.10 /usr/bin/python3
+RUN ln -sf /usr/bin/python3.11 /usr/bin/python3
 RUN ln -sf /usr/bin/python3 /usr/bin/python
-RUN ln -s /usr/bin/pip3.10 /usr/bin/pip
+RUN ln -s /usr/bin/pip3.11 /usr/bin/pip
 
 # Install Rust
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
@@ -122,7 +122,7 @@ RUN git clone -b centos https://github.com/xli/fbthrift.git
 WORKDIR /app/fbthrift
 
 # Install
-RUN make env
+#RUN make env
 
 
 # make port 80 available to the world outside this container
