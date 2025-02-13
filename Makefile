@@ -16,6 +16,7 @@ env:
 	pip install --upgrade pip
 	pip install setuptools
 	pip install setuptools_rust
+	pip install wheel
 	pip install Cython
 
 

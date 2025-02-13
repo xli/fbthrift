@@ -104,6 +104,7 @@ RUN dnf install -y \
 
 RUN ln -sf /usr/bin/python3.12 /usr/bin/python3
 RUN ln -sf /usr/bin/python3 /usr/bin/python
+RUN ln -s /usr/bin/pip3.12 /usr/bin/pip
 
 # Install Rust
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
@@ -112,7 +113,7 @@ RUN rustc --version
 
 
 # Clone the fbthrift Git project
-RUN git clone https://github.com/xli/fbthrift.git
+RUN git clone -b centos https://github.com/xli/fbthrift.git
 
 # Change into the cloned repository
 WORKDIR /app/fbthrift
