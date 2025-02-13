@@ -18,9 +18,12 @@ RUN dnf install -y \
 
 # Install Clang and Clang++
 RUN dnf install -y \
-    clang \
-    llvm-devel \
-    llvm-toolset
+    clang15 \
+    llvm15-devel
+#    llvm-toolset
+
+RUN ln -s /usr/bin/clang-15 /usr/bin/clang
+RUN ln -s /usr/bin/clang++-15 /usr/bin/clang++
 
 # # Set environment variables
 ENV CC=clang
@@ -98,13 +101,13 @@ RUN dnf install -y \
 
 # Install llm predictor dependencies
 RUN dnf install -y \
-    python3.12 \
-    python3.12-devel \
-    python3.12-pip
+    python3.10 \
+    python3.10-devel \
+    python3.10-pip
 
-RUN ln -sf /usr/bin/python3.12 /usr/bin/python3
+RUN ln -sf /usr/bin/python3.10 /usr/bin/python3
 RUN ln -sf /usr/bin/python3 /usr/bin/python
-RUN ln -s /usr/bin/pip3.12 /usr/bin/pip
+RUN ln -s /usr/bin/pip3.10 /usr/bin/pip
 
 # Install Rust
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
@@ -122,7 +125,7 @@ WORKDIR /app/fbthrift
 RUN make env
 
 
-# Make port 80 available to the world outside this container
+# make port 80 available to the world outside this container
 EXPOSE 80
 
 # Define environment variable

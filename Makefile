@@ -1,8 +1,8 @@
 BUILD_SHARED_LIBS="BUILD_SHARED_LIBS": "ON", "BOOST_LINK_STATIC": "OFF"
 INSTALL_DIR=/usr/local
 PYTHON_INSTALL_DIR=/usr/local
-PYTHON_INCLUDE_DIR=/usr/include/python3.12/
-PYTHON_LIBRARY=/usr/lib/aarch64-linux-gnu/libpython3.12.so
+PYTHON_INCLUDE_DIR=/usr/include/python3.10/
+PYTHON_LIBRARY=/usr/lib/aarch64-linux-gnu/libpython3.10.so
 PY_CMAKE="PYTHON_PACKAGE_INSTALL_DIR": "$(PYTHON_INSTALL_DIR)", "PYTHON_INCLUDE_DIR": "$(PYTHON_INCLUDE_DIR)", "PYTHON_LIBRARY": "$(PYTHON_LIBRARY)", "PYTHON_LIBRARIES": "$(PYTHON_LIBRARY)", "PYTHON_EXTENSIONS": "ON", "thriftpy3": "ON"
 CMAKE_C_FLAGS=
 CMAKE_CXX_FLAGS=-std=gnu++20 -O2 -I$(PYTHON_INCLUDE_DIR)
@@ -46,8 +46,8 @@ build:
 		2>&1 | tee /var/log/build_$(target).log
 
 dock:
-	docker build --no-cache -t jmtest .
-	docker run -it jmtest
+	docker build --no-cache -t centos .
+	docker run -it centos
 
 
 jmtest:
