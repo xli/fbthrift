@@ -107,7 +107,7 @@ RUN dnf install -y \
 
 RUN ln -sf /usr/bin/python3.12 /usr/bin/python3
 RUN ln -sf /usr/bin/python3 /usr/bin/python
-RUN ln -s /usr/bin/pip3.11 /usr/bin/pip
+RUN ln -s /usr/bin/pip3.12 /usr/bin/pip
 
 # Install Rust
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
@@ -122,7 +122,7 @@ RUN git clone -b centos https://github.com/xli/fbthrift.git
 WORKDIR /app/fbthrift
 
 # Install
-#RUN make env
+RUN make env install
 
 
 # make port 80 available to the world outside this container
