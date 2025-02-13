@@ -14,9 +14,9 @@ JMTEST_BUILD_DIR=/tmp/jmtest
 
 env:
 	pip install --upgrade pip
-	pip install setuptools=75.8.0
+	pip install setuptools==75.8.0
 	pip install setuptools_rust
-	pip install wheel=0.45.1
+	pip install wheel==0.45.1
 	pip install Cython==3.0.11
 
 
@@ -32,6 +32,7 @@ install:
 	make build target=wangle
 	make build target=mvfst
 	make build target=fbthrift
+	make build target=fb303
 
 
 build: target=fbthrift
