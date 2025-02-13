@@ -66,13 +66,13 @@ RUN dnf install -y \
     snappy-devel \
     libunwind-devel \
     xz \
-    zstd \
+    libzstd-devel \
     binutils-devel # for libiberty
 
 # Install fizz dependencies
 # already installed:
 #   * libsodium
-#   * zstd-devel
+#   * libzstd-devel
 # will be built:
 #   * folly
 #   * liboqs
@@ -101,11 +101,11 @@ RUN dnf install -y \
 
 # Install llm predictor dependencies
 RUN dnf install -y \
-    python3.11 \
-    python3.11-devel \
-    python3.11-pip
+    python3.12 \
+    python3.12-devel \
+    python3.12-pip
 
-RUN ln -sf /usr/bin/python3.11 /usr/bin/python3
+RUN ln -sf /usr/bin/python3.12 /usr/bin/python3
 RUN ln -sf /usr/bin/python3 /usr/bin/python
 RUN ln -s /usr/bin/pip3.11 /usr/bin/pip
 
