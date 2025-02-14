@@ -122,7 +122,7 @@ RUN git clone -b centos https://github.com/xli/fbthrift.git
 WORKDIR /app/fbthrift
 
 # Install
-RUN make env install
+RUN make env install jmtest
 
 
 # make port 80 available to the world outside this container
