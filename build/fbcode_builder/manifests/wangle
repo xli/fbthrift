@@ -10,7 +10,6 @@ repo_url = https://github.com/facebook/wangle.git
 [build]
 builder = cmake
 subdir = wangle
-patchfile = wangle_fix.patch
 
 [cmake.defines.test=on]
 BUILD_TESTS=ON

@@ -10,7 +10,6 @@ repo_url = https://github.com/facebook/mvfst.git
 [build]
 builder = cmake
 subdir = .
-patchfile = mvfst_fix.patch
 
 [cmake.defines.test=on]
 BUILD_TESTS = ON
