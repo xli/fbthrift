@@ -18,6 +18,7 @@
 # created as tree of links to the real source files.
 
 import sys
+import os
 
 import Cython
 from Cython.Build import cythonize
@@ -82,7 +83,6 @@ else:
     common_options = {
         "language": "c++",
         "libraries": libs,
-        "extra_compile_args": ["-std=gnu++17", "-fcoroutines"],
     }
 
     exts = [
