@@ -116,7 +116,7 @@ RUN rustc --version
 
 
 # Clone the fbthrift Git project
-RUN git clone -b centos https://github.com/xli/fbthrift.git
+RUN git clone https://github.com/xli/fbthrift.git
 
 # Change into the cloned repository
 WORKDIR /app/fbthrift
